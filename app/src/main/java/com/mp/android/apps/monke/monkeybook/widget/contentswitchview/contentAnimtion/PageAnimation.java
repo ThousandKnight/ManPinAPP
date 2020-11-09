@@ -1,7 +1,9 @@
 package com.mp.android.apps.monke.monkeybook.widget.contentswitchview.contentAnimtion;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import com.mp.android.apps.monke.monkeybook.utils.DensityUtil;
 import com.mp.android.apps.monke.monkeybook.widget.contentswitchview.BookContentView;
@@ -9,15 +11,21 @@ import com.mp.android.apps.monke.monkeybook.widget.contentswitchview.ContentSwit
 
 import java.util.List;
 
-public abstract class MyPageAnimation {
+public abstract class PageAnimation {
     private Context context;
 
-    public MyPageAnimation(Context context) {
+    public PageAnimation(Context context) {
         this.context = context;
         scrollX = DensityUtil.dp2px(context, 30f);
         scrollY = DensityUtil.dp2px(context, 30f);
     }
+    public void noPre() {
+        Toast.makeText(context, "没有上一页", Toast.LENGTH_SHORT).show();
+    }
 
+    public void noNext() {
+        Toast.makeText(context, "没有下一页", Toast.LENGTH_SHORT).show();
+    }
     /**
      * x轴滑动最大距离
      */
@@ -56,9 +64,11 @@ public abstract class MyPageAnimation {
 
         boolean onlyOne();
 
-        int getWidth();
+        int getScreenWidth();
 
-        int getHeight();
+        int getScreenHeight();
+
+        void onAnimationEnd(Animator animation,int orderXY);
     }
 
     ;
