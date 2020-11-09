@@ -14,11 +14,10 @@ import java.util.List;
 
 public class ConverPageAnim extends HorizonPageAnim {
     float startX = -1;
-    private Context context;
+
 
     public ConverPageAnim(Context context) {
         super(context);
-        this.context = context;
     }
 
     @Override
@@ -47,9 +46,7 @@ public class ConverPageAnim extends HorizonPageAnim {
 
                     } else if (durX < 0 && (onLayoutStatus.preAndNext() || onLayoutStatus.onlyNext())) {
                         int tempX = durX;
-                        if (tempX > 0)
-                            tempX = 0;
-                        else if (tempX < -onLayoutStatus.getScreenWidth())
+                        if (tempX < -onLayoutStatus.getScreenWidth())
                             tempX = -onLayoutStatus.getScreenWidth();
                         int tempIndex = (onLayoutStatus.preAndNext() ? 1 : 0);
                         viewContents.get(tempIndex).layout(tempX, viewContents.get(tempIndex).getTop(), tempX + onLayoutStatus.getScreenWidth(), viewContents.get(tempIndex).getBottom());
@@ -66,7 +63,7 @@ public class ConverPageAnim extends HorizonPageAnim {
                         //注意冗余值
                         if (event.getX() - startX + durWidth > scrollX) {
                             //向前翻页成功
-                            initMoveSuccessAnim(viewContents.get(0), 0, onLayoutStatus, viewContents, contentSwitchView, loadDataListener);
+                            initMoveSuccessAnim(viewContents.get(0), 0, onLayoutStatus);
                         } else {
                             initMoveFailAnim(viewContents.get(0), -onLayoutStatus.getScreenWidth(), onLayoutStatus);
                         }
@@ -80,7 +77,7 @@ public class ConverPageAnim extends HorizonPageAnim {
                         //注意冗余值
                         if (startX - event.getX() - durWidth > scrollX) {
                             //向后翻页成功
-                            initMoveSuccessAnim(viewContents.get(tempIndex), -onLayoutStatus.getScreenWidth(), onLayoutStatus, viewContents, contentSwitchView, loadDataListener);
+                            initMoveSuccessAnim(viewContents.get(tempIndex), -onLayoutStatus.getScreenWidth(), onLayoutStatus);
                         } else {
                             initMoveFailAnim(viewContents.get(tempIndex), 0, onLayoutStatus);
                         }
@@ -93,7 +90,7 @@ public class ConverPageAnim extends HorizonPageAnim {
                     if (ReadBookControl.getInstance().getCanClickTurn() && event.getX() <= onLayoutStatus.getScreenWidth() / 3) {
                         //点击向前翻页
                         if (onLayoutStatus.preAndNext() || onLayoutStatus.onlyPre()) {
-                            initMoveSuccessAnim(viewContents.get(0), 0, onLayoutStatus, viewContents, contentSwitchView, loadDataListener);
+                            initMoveSuccessAnim(viewContents.get(0), 0, onLayoutStatus);
                         } else {
                             noPre();
                         }
@@ -101,7 +98,7 @@ public class ConverPageAnim extends HorizonPageAnim {
                         //点击向后翻页
                         if (onLayoutStatus.preAndNext() || onLayoutStatus.onlyNext()) {
                             int tempIndex = (onLayoutStatus.preAndNext() ? 1 : 0);
-                            initMoveSuccessAnim(viewContents.get(tempIndex), -onLayoutStatus.getScreenWidth(), onLayoutStatus, viewContents, contentSwitchView, loadDataListener);
+                            initMoveSuccessAnim(viewContents.get(tempIndex), -onLayoutStatus.getScreenWidth(), onLayoutStatus);
                         } else {
                             noNext();
                         }
@@ -115,9 +112,7 @@ public class ConverPageAnim extends HorizonPageAnim {
 
     private final long animDuration = 300;
 
-    public void initMoveSuccessAnim(final View view, final int orderX, onLayoutStatus onLayoutStatus,
-                                    List<BookContentView> viewContents, ContentSwitchView contentSwitchView,
-                                    ContentSwitchView.LoadDataListener loadDataListener) {
+    public void initMoveSuccessAnim(final View view, final int orderX, onLayoutStatus onLayoutStatus) {
         if (null != view) {
             long temp = Math.abs(view.getLeft() - orderX) / (onLayoutStatus.getScreenWidth() / animDuration);
             ValueAnimator tempAnim = ValueAnimator.ofInt(view.getLeft(), orderX).setDuration(temp);

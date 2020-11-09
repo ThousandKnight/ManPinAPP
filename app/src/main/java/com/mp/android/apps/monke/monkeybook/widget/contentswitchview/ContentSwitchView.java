@@ -441,7 +441,7 @@ public class ContentSwitchView extends FrameLayout implements BookContentView.Se
 
             }
         } else {
-            //翻向后一夜
+            //翻向后一页
             if (onlyNext()) {
                 durPageView = viewContents.get(1);
             } else {
