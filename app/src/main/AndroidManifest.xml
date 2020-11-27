@@ -76,6 +76,7 @@
 
             android:theme="@style/CAppTransparentTheme" />
         <activity android:name=".main.ManpinWXActivity"/>
+        <activity android:name=".monke.monkeybook.view.impl.ImportActivity"/>
 <!--        <activity-->
 <!--            android:name=".monke.monkeybook.view.impl.ReadBookActivity"-->
 <!--            android:launchMode="singleTask">-->

@@ -125,7 +125,7 @@ public class BookMainActivity extends MBaseActivity<IMainPresenter> implements I
             @Override
             public void onClick(View v) {
                 //点击更多
-                startActivityByAnim(new Intent(BookMainActivity.this, ImportBookActivity.class), 0, 0);
+                startActivityByAnim(new Intent(BookMainActivity.this, ImportActivity.class), 0, 0);
             }
         });
         bookShelfAdapter.setItemClickListener(new BookShelfAdapter.OnItemClickListener() {
