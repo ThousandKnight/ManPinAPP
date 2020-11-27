@@ -37,10 +37,10 @@ public abstract class BaseActivity<T extends IPresenter> extends RxAppCompatActi
         AppActivityManager.getInstance().add(this);
         initSDK();
         onCreateActivity();
+        unbinder = ButterKnife.bind(this);
         mPresenter = initInjector();
         attachView();
         initData();
-        unbinder = ButterKnife.bind(this);
         bindView();
         bindEvent();
         firstRequest();
